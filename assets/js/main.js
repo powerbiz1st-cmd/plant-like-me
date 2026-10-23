@@ -297,7 +297,14 @@ function productUrl() {
 function openProduct(noteId) {
   const url = productUrl();
   if (!url) return notice(content.result.noUrlNotice, noteId);
-  window.location.href = withUtm(url, 'fortune', typeId(current.plant.id, current.type));
+  // 새 창으로 열어서, 돌아와도 결과 화면이 그대로 남게 한다
+  const a = document.createElement('a');
+  a.href = withUtm(url, 'fortune', typeId(current.plant.id, current.type));
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 /* 친구에게 공유: 이미지가 아니라 특가 링크를 보낸다(utm_source=share) */
