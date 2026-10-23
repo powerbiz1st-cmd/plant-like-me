@@ -14,3 +14,7 @@ export const KAKAO_JS_KEY = '';
 
 // TODO: 띠 기준 — 'lunar-new-year'(음력 설) 또는 'ipchun'(입춘). 정해지기 전까지 비워 둡니다.
 export const ZODIAC_BOUNDARY = '';
+
+// TODO: 출생연도 선택 범위 (임시값, 실제 범위는 사람이 정합니다)
+export const BIRTH_YEAR_MIN = 1940;
+export const BIRTH_YEAR_MAX = 2010;

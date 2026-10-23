@@ -50,3 +50,32 @@ h1 em { font-style: normal; color: var(--accent); }
 .cta:active { transform: scale(.98); }
 .cta:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .note { margin: 0; font-size: 13px; color: var(--ink-soft); }
+
+/* ── 2단계: 화면 전환, 출생연도, 질문, 결과 (위와 같은 토큰만 사용) ── */
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: no-preference) {
+  .view:not([hidden]) { animation: view-in .2s ease-out; }
+  @keyframes view-in { from { opacity: 0; } to { opacity: 1; } }
+}
+h1:focus { outline: none; }
+.back, .text-btn { min-width: 44px; height: 44px; margin-left: -8px; padding: 0 8px; border: 0; background: none; color: var(--ink); font-family: inherit; font-size: 16px; cursor: pointer; }
+.text-btn { margin: 0 -8px 0 0; color: var(--ink-soft); }
+.back:focus-visible, .text-btn:focus-visible, .choice:focus-visible, .year-select:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.cta:disabled { background: var(--ink-soft); opacity: .5; cursor: default; }
+.cta:disabled:active { transform: none; }
+
+.year-select { width: 100%; height: 56px; margin-top: 24px; padding: 0 16px; border: 2px solid var(--card); border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 20px; font-weight: 500; }
+
+.choices { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+.choice { width: 100%; min-height: 72px; padding: 16px 20px; border: 2px solid var(--card); border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 18px; font-weight: 500; line-height: 1.4; text-align: left; cursor: pointer; }
+.choice:active { transform: scale(.98); border-color: var(--accent); }
+
+.hero { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 8px; }
+.hero svg { width: 120px; height: 120px; padding: 12px; background: var(--card); border-radius: var(--radius-card); }
+.hero h1 { margin: 8px 0 0; }
+.hero .tag { font-size: 14px; }
+.body-text { margin: 20px 0 0; font-size: 17px; line-height: 1.6; }
+.body-text.soft { margin-top: 10px; font-size: 16px; color: var(--ink-soft); }
+.deal { margin-top: 24px; padding: 20px; background: var(--card); border-radius: var(--radius-card); }
+.deal strong { font-size: 18px; }
+.deal p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; color: var(--ink-soft); }

@@ -55,23 +55,83 @@
   </symbol>
 </svg>
 
-<main class="screen" id="screen-start">
-  <header class="top">
-    <b id="store-name"></b>
-    <span id="today"></span>
-  </header>
+<!-- 시작 -->
+<div class="view" id="view-start">
+  <main class="screen">
+    <header class="top">
+      <b class="store-name"></b>
+      <span id="today"></span>
+    </header>
 
-  <h1>내 띠로 보는<br>오늘의 운세와<br><em>나를 닮은 식물</em></h1>
-  <p class="sub">출생연도만 고르면 바로 확인할 수 있어요.</p>
+    <h1>내 띠로 보는<br>오늘의 운세와<br><em>나를 닮은 식물</em></h1>
+    <p class="sub">출생연도만 고르면 바로 확인할 수 있어요.</p>
 
-  <!-- 카드는 content/plants.json으로 자동 생성됩니다 -->
-  <ul class="plants" id="plants"></ul>
-</main>
+    <!-- 카드는 content/plants.json으로 자동 생성됩니다 -->
+    <ul class="plants" id="plants"></ul>
+  </main>
+  <div class="bar">
+    <div class="bar-inner">
+      <button class="cta" id="start" type="button">내 식물 찾으러 가기</button>
+      <p class="note">입력한 내용은 저장되지 않아요</p>
+    </div>
+  </div>
+</div>
 
-<div class="bar">
-  <div class="bar-inner">
-    <button class="cta" id="start" type="button">내 식물 찾으러 가기</button>
-    <p class="note">입력한 내용은 저장되지 않아요</p>
+<!-- 출생연도 -->
+<div class="view" id="view-year" hidden>
+  <main class="screen">
+    <header class="top">
+      <button class="back" type="button" data-back></button>
+      <b class="store-name"></b>
+    </header>
+    <h1 id="year-title" tabindex="-1"></h1>
+    <p class="sub" id="year-sub"></p>
+    <select class="year-select" id="year" aria-labelledby="year-title"></select>
+  </main>
+  <div class="bar">
+    <div class="bar-inner">
+      <button class="cta" id="year-next" type="button" disabled></button>
+    </div>
+  </div>
+</div>
+
+<!-- 질문 (내용은 content/questions.json에서 채웁니다) -->
+<div class="view" id="view-question" hidden>
+  <main class="screen">
+    <header class="top">
+      <button class="back" type="button" data-back></button>
+      <span id="progress"></span>
+    </header>
+    <h1 id="q-title" tabindex="-1"></h1>
+    <div class="choices" id="choices"></div>
+  </main>
+</div>
+
+<!-- 결과 -->
+<div class="view" id="view-result" hidden>
+  <main class="screen">
+    <header class="top">
+      <b class="store-name"></b>
+      <button class="text-btn" type="button" id="restart"></button>
+    </header>
+    <p class="sub" id="r-heading"></p>
+    <section class="hero">
+      <svg aria-hidden="true"><use id="r-icon" href=""></use></svg>
+      <h1 id="r-name" tabindex="-1"></h1>
+      <span class="tag" id="r-tag"></span>
+    </section>
+    <p class="body-text" id="r-intro"></p>
+    <p class="body-text soft" id="r-typeline"></p>
+    <section class="deal">
+      <strong id="deal-title"></strong>
+      <p id="deal-body"></p>
+    </section>
+  </main>
+  <div class="bar">
+    <div class="bar-inner">
+      <button class="cta" id="browse" type="button"></button>
+      <p class="note" id="browse-note" hidden></p>
+    </div>
   </div>
 </div>
 

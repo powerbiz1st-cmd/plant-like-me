@@ -1,0 +1,40 @@
+{
+  "year": {
+    "title": "[더미] 태어난 해를 골라 주세요",
+    "sub": "[더미] 띠와 오늘의 운세에 쓰여요.",
+    "placeholder": "[더미] 출생연도 선택",
+    "unit": "년",
+    "button": "다음"
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "title": "쉬는 날 나는?",
+      "answers": [
+        { "id": "a", "text": "계획 없이 흘러가는 대로" },
+        { "id": "b", "text": "정해 둔 자리에서 편하게" }
+      ]
+    },
+    {
+      "id": "q2",
+      "title": "사람들 속에서 나는?",
+      "answers": [
+        { "id": "a", "text": "먼저 나서서 분위기를 만드는 편" },
+        { "id": "b", "text": "곁에서 조용히 편하게 해 주는 편" }
+      ]
+    },
+    {
+      "id": "q3",
+      "title": "새로운 일이 생기면?",
+      "answers": [
+        { "id": "a", "text": "일단 해보면서 배우는 편" },
+        { "id": "b", "text": "정리해 두고 시작하는 편" }
+      ]
+    }
+  ],
+  "rules": {
+    "typeByQ1": { "a": "water", "b": "soil" },
+    "plantByQ2Q3": { "aa": "monstera", "ab": "hanra", "ba": "palm", "bb": "bamboo" }
+  },
+  "ui": { "back": "이전", "restart": "다시 해보기" }
+}
