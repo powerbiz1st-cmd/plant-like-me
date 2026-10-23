@@ -1,7 +1,7 @@
 {
   "year": {
-    "title": "[더미] 태어난 날을 골라 주세요",
-    "sub": "[더미] 띠와 오늘의 운세에 쓰여요.",
+    "title": "태어난 날을 골라 주세요",
+    "sub": "띠와 오늘의 운세에 쓰여요.",
     "yearPlaceholder": "연도", "monthPlaceholder": "월", "dayPlaceholder": "일",
     "yearUnit": "년", "monthUnit": "월", "dayUnit": "일",
     "button": "다음"

@@ -26,6 +26,12 @@ function show(viewId, focusId) {
   if (focusId) $(focusId).focus({ preventScroll: true });
 }
 
+/* 이름 끝 글자에 받침이 있으면 "과", 없으면 "와" */
+function withGwa(word) {
+  const code = word.charCodeAt(word.length - 1) - 0xac00;
+  return code >= 0 && code % 28 !== 0 ? '과' : '와';
+}
+
 function showToday() {
   const now = new Date();
   $('today').textContent =
@@ -206,6 +212,7 @@ function showResult() {
     .replace('{띠}', zodiacInfo.name)
     .replace('{키워드}', zodiacInfo.keyword)
     .replace('{식물 특성}', plant.trait)
+    .replace('{식물}과', plant.name + withGwa(plant.name))
     .replace('{식물}', plant.name);
   $('r-zodiac').textContent = zodiacLine;
   $('r-photo').src = `assets/img/plants/${plant.id}.webp`;
