@@ -31,8 +31,7 @@ h1 { margin: 20px 0 12px; font-size: 32px; line-height: 1.3; letter-spacing: -0.
 h1 em { font-style: normal; color: var(--accent); }
 .sub { margin: 0; font-size: 16px; line-height: 1.5; color: var(--ink-soft); }
 
-.plants { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 24px; padding: 0; list-style: none; }
-.plant { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 12px; background: var(--card); border-radius: var(--radius-card); }
+.plant { flex: 0 0 132px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 12px; background: var(--card); border-radius: var(--radius-card); }
 .plant svg { width: 84px; height: 84px; }
 .plant strong { font-size: 16px; }
 .tag { padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
@@ -60,11 +59,10 @@ h1 em { font-style: normal; color: var(--accent); }
 h1:focus { outline: none; }
 .back, .text-btn { min-width: 44px; height: 44px; margin-left: -8px; padding: 0 8px; border: 0; background: none; color: var(--ink); font-family: inherit; font-size: 16px; cursor: pointer; }
 .text-btn { margin: 0 -8px 0 0; color: var(--ink-soft); }
-.back:focus-visible, .text-btn:focus-visible, .choice:focus-visible, .year-select:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.back:focus-visible, .text-btn:focus-visible, .choice:focus-visible, .date-select:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .cta:disabled { background: var(--ink-soft); opacity: .5; cursor: default; }
 .cta:disabled:active { transform: none; }
 
-.year-select { width: 100%; height: 56px; margin-top: 24px; padding: 0 16px; border: 2px solid var(--card); border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 20px; font-weight: 500; }
 
 .choices { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
 .choice { width: 100%; min-height: 72px; padding: 16px 20px; border: 2px solid var(--card); border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 18px; font-weight: 500; line-height: 1.4; text-align: left; cursor: pointer; }
@@ -79,3 +77,23 @@ h1:focus { outline: none; }
 .deal { margin-top: 24px; padding: 20px; background: var(--card); border-radius: var(--radius-card); }
 .deal strong { font-size: 18px; }
 .deal p { margin: 8px 0 0; font-size: 16px; line-height: 1.5; color: var(--ink-soft); }
+
+/* ── 3단계: 첫 화면 가로 흐름, 출생일 선택, 운세 ── */
+/* 화면 좌우 여백(20px)을 뚫고 끝까지 흐르게 한다. 세로 스크롤은 그대로 통과시킨다. */
+.marquee { margin: 24px -20px 0; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+.marquee.dragging { cursor: grabbing; }
+.track { display: flex; gap: 10px; margin: 0; padding: 0 10px 0 20px; list-style: none; width: max-content; will-change: transform; }
+
+.date-row { display: flex; gap: 8px; margin-top: 24px; }
+.date-select { flex: 1 1 0; min-width: 0; height: 56px; padding: 0 12px; border: 2px solid var(--card); border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 18px; font-weight: 500; }
+.date-select.year { flex: 1.5 1 0; }
+
+.modifier { margin: 8px 0 0; font-size: 16px; color: var(--ink-soft); }
+.modifier + h1 { margin-top: 2px; }
+.fortune { margin-top: 24px; padding: 20px; background: var(--card); border-radius: var(--radius-card); }
+.fortune h2 { margin: 0; font-size: 18px; }
+.f-line { margin: 10px 0 0; font-size: 17px; line-height: 1.6; }
+.fortune dl { margin: 16px 0 0; }
+.fortune dl div { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--bg); font-size: 16px; }
+.fortune dt { color: var(--ink-soft); }
+.fortune dd { margin: 0; font-weight: 700; }

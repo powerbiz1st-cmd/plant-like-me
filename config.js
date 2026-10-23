@@ -12,8 +12,8 @@ export const SITE_URL = '';
 // TODO: 카카오 JavaScript 키
 export const KAKAO_JS_KEY = '';
 
-// TODO: 띠 기준 — 'lunar-new-year'(음력 설) 또는 'ipchun'(입춘). 정해지기 전까지 비워 둡니다.
-export const ZODIAC_BOUNDARY = '';
+// 띠 기준: 'lunar-new-year'(음력 설, 확정). 브라우저 중국력(Intl)으로 양력 생일을 음력 해로 바꿔 정합니다.
+export const ZODIAC_BOUNDARY = 'lunar-new-year';
 
 // TODO: 출생연도 선택 범위 (임시값, 실제 범위는 사람이 정합니다)
 export const BIRTH_YEAR_MIN = 1940;

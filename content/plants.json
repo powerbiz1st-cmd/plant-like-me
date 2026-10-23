@@ -1,23 +1,24 @@
 {
   "typeLabel": { "water": "물형", "soil": "흙형" },
+  "types": ["water", "soil"],
   "plants": [
     {
-      "id": "monstera", "name": "몬스테라", "type": "water",
+      "id": "monstera", "name": "몬스테라", "trait": "[더미] 몬스테라 특성",
       "intro": "[더미] 몬스테라 소개: 식물 특성과 사람 성격을 연결한 문구가 들어가요.",
       "typeLine": { "water": "[더미] 몬스테라 물형 한 줄", "soil": "[더미] 몬스테라 흙형 한 줄" }
     },
     {
-      "id": "hanra", "name": "나한송", "type": "soil",
+      "id": "hanra", "name": "나한송", "trait": "[더미] 나한송 특성",
       "intro": "[더미] 나한송 소개: 식물 특성과 사람 성격을 연결한 문구가 들어가요.",
       "typeLine": { "water": "[더미] 나한송 물형 한 줄", "soil": "[더미] 나한송 흙형 한 줄" }
     },
     {
-      "id": "bamboo", "name": "개운죽", "type": "water",
+      "id": "bamboo", "name": "개운죽", "trait": "[더미] 개운죽 특성",
       "intro": "[더미] 개운죽 소개: 식물 특성과 사람 성격을 연결한 문구가 들어가요.",
       "typeLine": { "water": "[더미] 개운죽 물형 한 줄", "soil": "[더미] 개운죽 흙형 한 줄" }
     },
     {
-      "id": "palm", "name": "테이블야자", "type": "soil",
+      "id": "palm", "name": "테이블야자", "trait": "[더미] 테이블야자 특성",
       "intro": "[더미] 테이블야자 소개: 식물 특성과 사람 성격을 연결한 문구가 들어가요.",
       "typeLine": { "water": "[더미] 테이블야자 물형 한 줄", "soil": "[더미] 테이블야자 흙형 한 줄" }
     }
