@@ -4,6 +4,8 @@ const W = 1080;
 const H = 1350;
 const PAD = 72;
 const FONT = '"Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif';
+const LOGO_SRC = 'assets/img/logo-green.svg';
+const LOGO_W = 220; // 하단 중앙에 작게
 
 const token = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
@@ -53,16 +55,17 @@ function drawWrapped(ctx, text, x, y, maxWidth, lineHeight, maxLines) {
   return y + Math.min(lines.length, maxLines) * lineHeight;
 }
 
-/* data: { symbolId, photoSrc, storeName, modifier, plantName, tagLabel, tagType, typeLine, zodiacLine, personName, nameSuffix } */
+/* data: { symbolId, photoSrc, modifier, plantName, tagLabel, tagType, typeLine, zodiacLine, personName, nameSuffix } */
 export async function drawCard(data) {
   await Promise.all([
     document.fonts.load(`400 40px "Noto Sans KR"`),
     document.fonts.load(`500 40px "Noto Sans KR"`),
     document.fonts.load(`700 40px "Noto Sans KR"`),
   ]);
-  const [plantImg, photo] = await Promise.all([
+  const [plantImg, photo, logo] = await Promise.all([
     plantSvgImage(data.symbolId, 440),
     loadImage(data.photoSrc),
+    loadImage(LOGO_SRC),
   ]);
 
   const canvas = document.createElement('canvas');
@@ -74,14 +77,9 @@ export async function drawCard(data) {
   ctx.fillStyle = token('--bg');
   ctx.fillRect(0, 0, W, H);
 
-  // 가게 이름
-  ctx.fillStyle = token('--ink');
-  ctx.font = `700 40px ${FONT}`;
-  ctx.fillText(data.storeName, PAD, 118);
-
   // 그림과 사진
   const tile = 440;
-  const tileY = 170;
+  const tileY = 110;
   roundRect(ctx, PAD, tileY, tile, tile, 40);
   ctx.fillStyle = token('--card');
   ctx.fill();
@@ -132,6 +130,9 @@ export async function drawCard(data) {
   ctx.fillStyle = token('--ink-soft');
   ctx.font = `400 38px ${FONT}`;
   drawWrapped(ctx, data.zodiacLine, PAD, y, maxWidth, 58, 3);
+
+  const logoH = LOGO_W * (logo.naturalHeight / logo.naturalWidth || 25 / 128);
+  ctx.drawImage(logo, (W - LOGO_W) / 2, H - PAD - logoH, LOGO_W, logoH);
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('toBlob failed'))), 'image/png');

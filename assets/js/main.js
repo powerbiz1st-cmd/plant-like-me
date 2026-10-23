@@ -323,7 +323,6 @@ async function renderCardImage() {
     const blob = await drawCard({
       symbolId: `p-${current.plant.id}-${current.type}`,
       photoSrc: `assets/img/plants/${current.plant.id}.webp`,
-      storeName: STORE_NAME,
       modifier: current.modifier,
       plantName: current.plant.name,
       tagLabel: content.plants.typeLabel[current.type],
@@ -388,7 +387,7 @@ async function init() {
   ]);
   content = { questions, plants, result, zodiac, ohaeng, fortune, card };
 
-  document.querySelectorAll('.store-name').forEach((el) => { el.textContent = STORE_NAME; });
+  document.querySelectorAll('.logo img').forEach((img) => { img.alt = STORE_NAME; });
   showToday();
   renderStartPlants();
   setupBirth();
