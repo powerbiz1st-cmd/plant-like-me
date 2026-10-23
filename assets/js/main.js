@@ -368,8 +368,7 @@ async function shareCardImage() {
   if (!cardBlob) return;
   const file = new File([cardBlob], c.fileName, { type: 'image/png' });
   if (!(navigator.canShare && navigator.canShare({ files: [file] }))) {
-    note.textContent = c.shareUnsupported;
-    note.hidden = false;
+    downloadCard(); // PC 등 파일 공유가 안 되는 환경
     return;
   }
   try {
@@ -377,9 +376,21 @@ async function shareCardImage() {
     note.hidden = true;
   } catch (err) {
     if (err.name === 'AbortError') return; // 사용자가 공유 창을 닫은 경우
-    note.textContent = c.shareFailed;
-    note.hidden = false;
+    downloadCard();
   }
+}
+
+/* 파일 공유가 안 될 때 내려받기로 대신한다(모바일 인앱 브라우저에서는 길게 눌러 저장이 기본) */
+function downloadCard() {
+  const c = content.card;
+  const a = document.createElement('a');
+  a.href = cardUrl;
+  a.download = c.fileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  $('card-note').textContent = c.downloaded;
+  $('card-note').hidden = false;
 }
 
 async function init() {

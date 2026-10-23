@@ -16,6 +16,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* 화면 폭: 휴대폰 기준, 큰 화면에서는 가운데 정렬 */
@@ -114,3 +116,7 @@ h1:focus { outline: none; }
 
 /* ── 로고: 그린 하나만 쓴다(너비 100px) ── */
 .logo img { display: block; width: 100px; height: auto; }
+
+/* ── 읽기 편하게: 단어 중간에서 끊지 않고, 줄 길이를 고르게 나눈다 ── */
+h1, h2, .sub, .body-text, .f-line, .deal p, .modifier { text-wrap: balance; }
+.body-text, .f-line, .deal p { text-wrap: pretty; }
