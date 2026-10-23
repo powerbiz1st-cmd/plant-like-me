@@ -15,7 +15,7 @@
 
 <body>
 <!-- 식물 그림은 한 번만 정의해 두고 카드에서 가져다 씁니다 (4종 × 물형/흙형 = 8개) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<svg id="plant-defs" width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <!-- 식물 윗부분 -->
     <g id="g-monstera">
@@ -142,7 +142,10 @@
     </header>
     <p class="sub" id="r-heading"></p>
     <section class="hero">
-      <svg aria-hidden="true"><use id="r-icon" href=""></use></svg>
+      <div class="pics">
+        <svg aria-hidden="true"><use id="r-icon" href=""></use></svg>
+        <img id="r-photo" alt="" width="480" height="480" loading="lazy">
+      </div>
       <p class="modifier" id="r-modifier"></p>
       <h1 id="r-name" tabindex="-1"></h1>
       <span class="tag" id="r-tag"></span>
@@ -163,11 +166,36 @@
       <strong id="deal-title"></strong>
       <p id="deal-body"></p>
     </section>
+    <button class="sub-btn" id="share-friend" type="button"></button>
+    <button class="text-link" id="save-card" type="button"></button>
   </main>
   <div class="bar">
     <div class="bar-inner">
       <button class="cta" id="browse" type="button"></button>
       <p class="note" id="browse-note" hidden></p>
+    </div>
+  </div>
+</div>
+
+<!-- 결과 이미지 카드 -->
+<div class="view" id="view-card" hidden>
+  <main class="screen">
+    <header class="top">
+      <button class="back" type="button" id="card-back"></button>
+      <b class="store-name"></b>
+    </header>
+    <h1 id="card-title" tabindex="-1"></h1>
+    <p class="sub" id="card-hint"></p>
+    <img class="card-img" id="card-img" alt="">
+    <label class="name-field">
+      <span id="name-label"></span>
+      <input id="name-input" type="text" maxlength="10" autocomplete="off">
+    </label>
+  </main>
+  <div class="bar">
+    <div class="bar-inner">
+      <button class="cta" id="card-share" type="button"></button>
+      <p class="note" id="card-note" hidden></p>
     </div>
   </div>
 </div>

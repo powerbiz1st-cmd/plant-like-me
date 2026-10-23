@@ -1,5 +1,8 @@
-import { STORE_NAME, CAFE24_DEAL_URL, BIRTH_YEAR_MIN, BIRTH_YEAR_MAX, ZODIAC_BOUNDARY } from '../../config.js';
+import {
+  STORE_NAME, CAFE24_DEAL_URL, PLANT_LINKS, KAKAO_JS_KEY, BIRTH_YEAR_MIN, BIRTH_YEAR_MAX, ZODIAC_BOUNDARY,
+} from '../../config.js';
 import { zodiacOf, ohaengOf, fortuneOf, daysInMonth } from './calc.js';
+import { typeId, withUtm } from './links.js';
 
 const WEEKDAYS = '일월화수목금토';
 const MARQUEE_SPEED = 40; // 첫 화면 식물 목록이 흐르는 속도(px/초)
@@ -7,8 +10,10 @@ const $ = (id) => document.getElementById(id);
 const views = document.querySelectorAll('.view');
 
 // 입력값은 이 객체에만 두고, 저장하거나 전송하지 않는다.
-let state = { birth: null, answers: [] };
+let state = { birth: null, answers: [], name: '' };
 let content = {};
+let current = null; // 지금 보여 주는 결과(식물, 유형, 카드에 쓸 문구)
+let cardUrl = null;
 
 async function loadJson(path) {
   const res = await fetch(path);
@@ -197,11 +202,15 @@ function showResult() {
   tag.textContent = content.plants.typeLabel[type];
   $('r-intro').textContent = plant.intro;
   $('r-typeline').textContent = plant.typeLine[type];
-  $('r-zodiac').textContent = content.zodiac.lineTemplate
+  const zodiacLine = content.zodiac.lineTemplate
     .replace('{띠}', zodiacInfo.name)
     .replace('{키워드}', zodiacInfo.keyword)
     .replace('{식물 특성}', plant.trait)
     .replace('{식물}', plant.name);
+  $('r-zodiac').textContent = zodiacLine;
+  $('r-photo').src = `assets/img/plants/${plant.id}.webp`;
+  $('r-photo').alt = `${plant.name} 사진`;
+  current = { plant, type, modifier: content.ohaeng.modifier[ohaeng], zodiacLine };
 
   $('f-title').textContent = f.labels.title;
   $('f-line').textContent = f.lines[today.iljin];
@@ -215,6 +224,8 @@ function showResult() {
   $('deal-title').textContent = r.dealTitle;
   $('deal-body').textContent = r.dealBody;
   $('browse').textContent = r.browseButton;
+  $('share-friend').textContent = r.shareFriend;
+  $('save-card').textContent = r.saveCard;
   $('browse-note').hidden = true;
   show('view-result', 'r-name');
 }
@@ -223,36 +234,159 @@ function setupNavigation() {
   $('start').addEventListener('click', () => show('view-year', 'year-title'));
   $('restart').textContent = content.questions.ui.restart;
   $('restart').addEventListener('click', () => {
-    state = { birth: null, answers: [] };
+    state = { birth: null, answers: [], name: '' };
     resetBirthForm();
     show('view-start');
   });
   $('view-year').querySelector('[data-back]').addEventListener('click', () => show('view-start'));
   $('view-question').querySelector('[data-back]').addEventListener('click', () => {
-    const current = state.answers.length;
-    if (current > 0) showQuestion(current - 1);
+    const answered = state.answers.length;
+    if (answered > 0) showQuestion(answered - 1);
     else show('view-year', 'year-title');
   });
-  $('browse').addEventListener('click', () => {
-    if (CAFE24_DEAL_URL) {
-      window.location.href = CAFE24_DEAL_URL; // 출처 표시(UTM)는 5단계에서 붙입니다
-    } else {
-      $('browse-note').textContent = content.result.noUrlNotice;
-      $('browse-note').hidden = false;
-    }
+  $('browse').addEventListener('click', openProduct);
+  $('share-friend').addEventListener('click', shareToFriend);
+  $('save-card').addEventListener('click', openCard);
+  $('card-back').addEventListener('click', () => show('view-result', 'r-name'));
+  $('card-share').addEventListener('click', shareCardImage);
+  let nameTimer;
+  $('name-input').addEventListener('input', () => {
+    state.name = $('name-input').value.trim();
+    clearTimeout(nameTimer);
+    nameTimer = setTimeout(renderCardImage, 400);
   });
 }
 
+/* 결과 화면 아래 알림(특가 주소, 카카오 키 등이 아직 없을 때) */
+function notice(text) {
+  $('browse-note').textContent = text;
+  $('browse-note').hidden = false;
+}
+
+/* 이동할 상품 주소: 특가 URL이 정해지면 그것을, 아직이면 식물별 임시 주소를 쓴다 */
+function productUrl() {
+  return CAFE24_DEAL_URL || PLANT_LINKS[current.plant.id] || '';
+}
+
+function openProduct() {
+  const url = productUrl();
+  if (!url) return notice(content.result.noUrlNotice);
+  window.location.href = withUtm(url, 'fortune', typeId(current.plant.id, current.type));
+}
+
+/* 친구에게 공유: 이미지가 아니라 특가 링크를 보낸다(utm_source=share) */
+function loadKakaoSdk() {
+  if (window.Kakao) return Promise.resolve(window.Kakao);
+  return new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js';
+    s.onload = () => resolve(window.Kakao);
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
+
+async function shareToFriend() {
+  const r = content.result;
+  const url = productUrl();
+  if (!url) return notice(r.noUrlNotice);
+  if (!KAKAO_JS_KEY) return notice(r.noKakaoNotice);
+  const link = withUtm(url, 'share', typeId(current.plant.id, current.type));
+  try {
+    const Kakao = await loadKakaoSdk();
+    if (!Kakao.isInitialized()) Kakao.init(KAKAO_JS_KEY);
+    Kakao.Share.sendDefault({
+      objectType: 'feed',
+      content: {
+        title: r.shareTitle,
+        description: r.shareDesc,
+        imageUrl: new URL(`assets/img/plants/${current.plant.id}.webp`, window.location.href).href,
+        link: { mobileWebUrl: link, webUrl: link },
+      },
+      buttons: [{ title: r.shareLinkButton, link: { mobileWebUrl: link, webUrl: link } }],
+    });
+  } catch (err) {
+    notice(r.kakaoFailed);
+  }
+}
+
+/* 결과 이미지 카드: 길게 눌러 저장이 기본, 가능하면 Web Share로 파일 공유 */
+let cardBlob = null;
+let cardRun = 0;
+
+async function renderCardImage() {
+  const c = content.card;
+  const run = ++cardRun; // 이름을 바꿔 다시 그리는 중이면 이전 결과는 버린다
+  $('card-note').hidden = true;
+  try {
+    const { drawCard } = await import('./card.js');
+    const blob = await drawCard({
+      symbolId: `p-${current.plant.id}-${current.type}`,
+      photoSrc: `assets/img/plants/${current.plant.id}.webp`,
+      storeName: STORE_NAME,
+      modifier: current.modifier,
+      plantName: current.plant.name,
+      tagLabel: content.plants.typeLabel[current.type],
+      tagType: current.type,
+      typeLine: current.plant.typeLine[current.type],
+      zodiacLine: current.zodiacLine,
+      personName: state.name,
+      nameSuffix: c.nameSuffix,
+    });
+    if (run !== cardRun) return;
+    cardBlob = blob;
+    if (cardUrl) URL.revokeObjectURL(cardUrl);
+    cardUrl = URL.createObjectURL(blob);
+    $('card-img').src = cardUrl;
+    $('card-img').alt = `${current.plant.name} ${content.plants.typeLabel[current.type]} 결과 이미지`;
+  } catch (err) {
+    if (run === cardRun) { $('card-note').textContent = c.drawFailed; $('card-note').hidden = false; }
+  }
+}
+
+function openCard() {
+  const c = content.card;
+  $('card-title').textContent = c.title;
+  $('card-hint').textContent = c.hint;
+  $('card-back').textContent = c.back;
+  $('card-share').textContent = c.shareButton;
+  $('name-label').textContent = c.nameLabel;
+  $('name-input').value = state.name;
+  show('view-card', 'card-title');
+  renderCardImage();
+}
+
+async function shareCardImage() {
+  const c = content.card;
+  const note = $('card-note');
+  if (!cardBlob) return;
+  const file = new File([cardBlob], c.fileName, { type: 'image/png' });
+  if (!(navigator.canShare && navigator.canShare({ files: [file] }))) {
+    note.textContent = c.shareUnsupported;
+    note.hidden = false;
+    return;
+  }
+  try {
+    await navigator.share({ files: [file] });
+    note.hidden = true;
+  } catch (err) {
+    if (err.name === 'AbortError') return; // 사용자가 공유 창을 닫은 경우
+    note.textContent = c.shareFailed;
+    note.hidden = false;
+  }
+}
+
 async function init() {
-  const [questions, plants, result, zodiac, ohaeng, fortune] = await Promise.all([
+  const [questions, plants, result, zodiac, ohaeng, fortune, card] = await Promise.all([
     loadJson('content/questions.json'),
     loadJson('content/plants.json'),
     loadJson('content/result.json'),
     loadJson('content/zodiac.json'),
     loadJson('content/ohaeng.json'),
     loadJson('content/fortune.json'),
+    loadJson('content/card.json'),
   ]);
-  content = { questions, plants, result, zodiac, ohaeng, fortune };
+  content = { questions, plants, result, zodiac, ohaeng, fortune, card };
 
   document.querySelectorAll('.store-name').forEach((el) => { el.textContent = STORE_NAME; });
   showToday();

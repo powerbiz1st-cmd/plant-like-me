@@ -69,7 +69,6 @@ h1:focus { outline: none; }
 .choice:active { transform: scale(.98); border-color: var(--accent); }
 
 .hero { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 8px; }
-.hero svg { width: 120px; height: 120px; padding: 12px; background: var(--card); border-radius: var(--radius-card); }
 .hero h1 { margin: 8px 0 0; }
 .hero .tag { font-size: 14px; }
 .body-text { margin: 20px 0 0; font-size: 17px; line-height: 1.6; }
@@ -97,3 +96,18 @@ h1:focus { outline: none; }
 .fortune dl div { display: flex; justify-content: space-between; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--bg); font-size: 16px; }
 .fortune dt { color: var(--ink-soft); }
 .fortune dd { margin: 0; font-weight: 700; }
+
+/* ── 4단계: 결과의 그림+사진, 보조 버튼, 이미지 카드 화면 ── */
+.pics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; width: 100%; }
+.pics svg, .pics img { display: block; width: 100%; height: auto; aspect-ratio: 1; border-radius: var(--radius-card); }
+.pics svg { padding: 16px; background: var(--card); }
+.pics img { object-fit: cover; background: var(--card); }
+
+.sub-btn { display: block; width: 100%; height: 56px; margin-top: 12px; border: 0; border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 17px; font-weight: 700; cursor: pointer; }
+.sub-btn:active { transform: scale(.98); }
+.text-link { display: block; width: 100%; min-height: 48px; margin-top: 4px; border: 0; background: none; color: var(--ink-soft); font-family: inherit; font-size: 16px; text-decoration: underline; cursor: pointer; }
+.sub-btn:focus-visible, .text-link:focus-visible, .name-field input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+.card-img { display: block; width: 100%; max-width: 320px; aspect-ratio: 4 / 5; margin-top: 20px; border-radius: var(--radius-card); background: var(--card); -webkit-touch-callout: default; }
+.name-field { display: block; margin-top: 20px; font-size: 16px; color: var(--ink-soft); }
+.name-field input { display: block; width: 100%; height: 56px; margin-top: 8px; padding: 0 16px; border: 2px solid var(--card); border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 18px; }

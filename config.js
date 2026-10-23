@@ -18,3 +18,12 @@ export const ZODIAC_BOUNDARY = 'lunar-new-year';
 // TODO: 출생연도 선택 범위 (임시값, 실제 범위는 사람이 정합니다)
 export const BIRTH_YEAR_MIN = 1940;
 export const BIRTH_YEAR_MAX = 2010;
+
+// 임시: 식물 둘러보기·친구 공유가 가는 상품 상세 주소(식물별). 특가 URL(CAFE24_DEAL_URL)이 정해지면 교체합니다.
+// TODO: 실제 카페24 특가 상품(진열 안 한 상품) 주소로 교체
+export const PLANT_LINKS = {
+  monstera: 'https://makejungle.co.kr/product/detail.html?product_no=330',
+  hanra: 'https://makejungle.co.kr/product/detail.html?product_no=331',
+  bamboo: 'https://makejungle.co.kr/product/detail.html?product_no=336',
+  palm: 'https://makejungle.co.kr/product/detail.html?product_no=322',
+};

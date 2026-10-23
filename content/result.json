@@ -3,5 +3,12 @@
   "dealTitle": "[더미] 특가 상품 이름",
   "dealBody": "[더미] 특가 설명. 마감 시간과 남은 수량은 카페24 설정을 따라요.",
   "browseButton": "식물 둘러보기",
-  "noUrlNotice": "[개발용] 특가 주소가 아직 정해지지 않았어요"
+  "noUrlNotice": "[개발용] 특가 주소가 아직 정해지지 않았어요",
+  "shareFriend": "친구에게 몰래 알려주기",
+  "saveCard": "[더미] 결과 이미지 저장",
+  "shareTitle": "[더미] 공유 제목",
+  "shareDesc": "[더미] 공유 설명",
+  "shareLinkButton": "[더미] 보러 가기",
+  "noKakaoNotice": "[개발용] 카카오 키가 아직 정해지지 않았어요",
+  "kakaoFailed": "[개발용] 카카오 공유를 열지 못했어요"
 }
