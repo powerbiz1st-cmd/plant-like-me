@@ -112,8 +112,5 @@ h1:focus { outline: none; }
 .name-field { display: block; margin-top: 20px; font-size: 16px; color: var(--ink-soft); }
 .name-field input { display: block; width: 100%; height: 56px; margin-top: 8px; padding: 0 16px; border: 2px solid var(--card); border-radius: var(--radius-btn); background: var(--card); color: var(--ink); font-family: inherit; font-size: 18px; }
 
-/* ── 로고: 기본은 그린. 어두운 테마가 생기면 <html data-theme="dark">로 흰색 로고가 나온다 ── */
-.logo img { display: block; width: auto; height: 25px; }
-.logo-dark { display: none !important; }
-:root[data-theme="dark"] .logo-light { display: none !important; }
-:root[data-theme="dark"] .logo-dark { display: block !important; }
+/* ── 로고: 그린 하나만 쓴다(너비 100px) ── */
+.logo img { display: block; width: 100px; height: auto; }
