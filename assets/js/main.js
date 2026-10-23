@@ -269,7 +269,8 @@ function setupNavigation() {
     if (answered > 0) showQuestion(answered - 1);
     else show('view-year', 'year-title');
   });
-  $('browse').addEventListener('click', openProduct);
+  $('browse').addEventListener('click', () => openProduct('browse-note'));
+  $('card-browse').addEventListener('click', () => openProduct('card-note'));
   $('share-friend').addEventListener('click', shareToFriend);
   $('save-card').addEventListener('click', openCard);
   $('card-back').addEventListener('click', () => show('view-result', 'r-name'));
@@ -283,9 +284,9 @@ function setupNavigation() {
 }
 
 /* 결과 화면 아래 알림(특가 주소, 카카오 키 등이 아직 없을 때) */
-function notice(text) {
-  $('browse-note').textContent = text;
-  $('browse-note').hidden = false;
+function notice(text, noteId = 'browse-note') {
+  $(noteId).textContent = text;
+  $(noteId).hidden = false;
 }
 
 /* 이동할 상품 주소: 특가 URL이 정해지면 그것을, 아직이면 식물별 임시 주소를 쓴다 */
@@ -293,9 +294,9 @@ function productUrl() {
   return CAFE24_DEAL_URL || PLANT_LINKS[current.plant.id] || '';
 }
 
-function openProduct() {
+function openProduct(noteId) {
   const url = productUrl();
-  if (!url) return notice(content.result.noUrlNotice);
+  if (!url) return notice(content.result.noUrlNotice, noteId);
   window.location.href = withUtm(url, 'fortune', typeId(current.plant.id, current.type));
 }
 
@@ -374,6 +375,7 @@ function openCard() {
   $('card-hint').textContent = c.hint;
   $('card-back').textContent = c.back;
   $('card-share').textContent = c.shareButton;
+  $('card-browse').textContent = content.result.browseButton;
   $('name-label').textContent = c.nameLabel;
   $('name-input').value = state.name;
   show('view-card', 'card-title');
