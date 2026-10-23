@@ -4,17 +4,17 @@
   "branches": "자축인묘진사오미신유술해",
   "lineTemplate": "{띠}띠는 {키워드} 편이에요. 그래서 {식물 특성}한 {식물}과 잘 어울려요.",
   "zodiacs": [
-    { "name": "쥐",     "keyword": "눈치가 빠르고 부지런한" },
-    { "name": "소",     "keyword": "묵묵히 끝까지 해내는" },
-    { "name": "호랑이", "keyword": "당차고 결단이 빠른" },
-    { "name": "토끼",   "keyword": "온화하고 배려가 깊은" },
-    { "name": "용",     "keyword": "포부가 크고 당당한" },
-    { "name": "뱀",     "keyword": "차분하고 생각이 깊은" },
-    { "name": "말",     "keyword": "활동적이고 자유로운" },
-    { "name": "양",     "keyword": "마음이 따뜻하고 부드러운" },
-    { "name": "원숭이", "keyword": "재치 있고 적응이 빠른" },
-    { "name": "닭",     "keyword": "꼼꼼하고 성실한" },
-    { "name": "개",     "keyword": "의리 있고 믿음직한" },
-    { "name": "돼지",   "keyword": "여유롭고 인정이 많은" }
+    { "name": "쥐", "emoji": "🐭",     "keyword": "눈치가 빠르고 부지런한" },
+    { "name": "소", "emoji": "🐮",     "keyword": "묵묵히 끝까지 해내는" },
+    { "name": "호랑이", "emoji": "🐯", "keyword": "당차고 결단이 빠른" },
+    { "name": "토끼", "emoji": "🐰",   "keyword": "온화하고 배려가 깊은" },
+    { "name": "용", "emoji": "🐲",     "keyword": "포부가 크고 당당한" },
+    { "name": "뱀", "emoji": "🐍",     "keyword": "차분하고 생각이 깊은" },
+    { "name": "말", "emoji": "🐴",     "keyword": "활동적이고 자유로운" },
+    { "name": "양", "emoji": "🐑",     "keyword": "마음이 따뜻하고 부드러운" },
+    { "name": "원숭이", "emoji": "🐵", "keyword": "재치 있고 적응이 빠른" },
+    { "name": "닭", "emoji": "🐔",     "keyword": "꼼꼼하고 성실한" },
+    { "name": "개", "emoji": "🐶",     "keyword": "의리 있고 믿음직한" },
+    { "name": "돼지", "emoji": "🐷",   "keyword": "여유롭고 인정이 많은" }
   ]
 }

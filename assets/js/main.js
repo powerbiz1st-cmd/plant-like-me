@@ -168,6 +168,11 @@ function showBirthLine(birth) {
   line.textContent = z.birthLine
     .replace('{간지}', z.stems[g % 10] + z.branches[g % 12])
     .replace('{띠}', z.zodiacs[index].name);
+  const icon = document.createElement('span');
+  icon.className = 'zodiac-icon';
+  icon.setAttribute('aria-hidden', 'true');
+  icon.textContent = z.zodiacs[index].emoji;
+  line.append(' ', icon);
   line.hidden = false;
 }
 

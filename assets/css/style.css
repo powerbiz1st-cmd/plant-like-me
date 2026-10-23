@@ -122,3 +122,4 @@ h1, h2, .sub, .body-text, .f-line, .deal p, .modifier { text-wrap: balance; }
 .body-text, .f-line, .deal p { text-wrap: pretty; }
 
 .birth-line { margin: 20px 0 0; font-size: 20px; font-weight: 700; line-height: 1.4; }
+.zodiac-icon { margin-left: 4px; font-size: 26px; vertical-align: -2px; }
