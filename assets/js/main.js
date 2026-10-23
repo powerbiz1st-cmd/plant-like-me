@@ -1,7 +1,7 @@
 import {
   STORE_NAME, CAFE24_DEAL_URL, PLANT_LINKS, KAKAO_JS_KEY, BIRTH_YEAR_MIN, BIRTH_YEAR_MAX, ZODIAC_BOUNDARY,
 } from '../../config.js';
-import { zodiacOf, ohaengOf, fortuneOf, daysInMonth } from './calc.js';
+import { zodiacOf, ohaengOf, fortuneOf, daysInMonth, yearGanjiIndex } from './calc.js';
 import { typeId, withUtm } from './links.js';
 
 const WEEKDAYS = '일월화수목금토';
@@ -140,7 +140,11 @@ function setupBirth() {
     fillSelect(dSel, year.dayPlaceholder, 1, max, 1, year.dayUnit);
     if (keep) dSel.value = String(Math.min(keep, max));
   };
-  const refreshButton = () => { $('year-next').disabled = !(ySel.value && mSel.value && dSel.value); };
+  const refreshButton = () => {
+    const done = ySel.value && mSel.value && dSel.value;
+    $('year-next').disabled = !done;
+    showBirthLine(done ? { year: Number(ySel.value), month: Number(mSel.value), day: Number(dSel.value) } : null);
+  };
 
   refreshDays();
   ySel.addEventListener('change', () => { refreshDays(); refreshButton(); });
@@ -154,10 +158,24 @@ function setupBirth() {
   document.querySelectorAll('[data-back]').forEach((b) => { b.textContent = ui.back; });
 }
 
+/* 출생일을 고르면 "을미년 양띠시군요."처럼 간지와 띠를 한 줄로 보여 준다 */
+function showBirthLine(birth) {
+  const line = $('birth-line');
+  if (!birth) { line.hidden = true; return; }
+  const z = content.zodiac;
+  const { index, year } = zodiacOf(birth.year, birth.month, birth.day, ZODIAC_BOUNDARY);
+  const g = yearGanjiIndex(year);
+  line.textContent = z.birthLine
+    .replace('{간지}', z.stems[g % 10] + z.branches[g % 12])
+    .replace('{띠}', z.zodiacs[index].name);
+  line.hidden = false;
+}
+
 function resetBirthForm() {
   $('year').value = '';
   $('month').value = '';
   $('day').value = '';
+  $('birth-line').hidden = true;
   $('year-next').disabled = true;
 }
 

@@ -32,7 +32,12 @@ export function zodiacOf(year, month, day, boundary = 'lunar-new-year') {
     const lunar = lunarYearOf(year, month, day);
     if (lunar !== null) { zodiacYear = lunar; exact = true; }
   }
-  return { index: mod(zodiacYear - 4, 12), exact };
+  return { index: mod(zodiacYear - 4, 12), year: zodiacYear, exact };
+}
+
+/* 해의 60갑자 순번(0~59). 순번 % 10이 천간, 순번 % 12가 지지. 1984년이 갑자(0)년 */
+export function yearGanjiIndex(year) {
+  return mod(year - 4, 60);
 }
 
 /* 일진: 날짜 → 60갑자 순번(0~59). 순번 % 10이 천간, 순번 % 12가 지지 */

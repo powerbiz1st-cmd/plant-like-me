@@ -120,3 +120,5 @@ h1:focus { outline: none; }
 /* ── 읽기 편하게: 단어 중간에서 끊지 않고, 줄 길이를 고르게 나눈다 ── */
 h1, h2, .sub, .body-text, .f-line, .deal p, .modifier { text-wrap: balance; }
 .body-text, .f-line, .deal p { text-wrap: pretty; }
+
+.birth-line { margin: 20px 0 0; font-size: 20px; font-weight: 700; line-height: 1.4; }

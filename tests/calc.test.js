@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ohaengOf, zodiacOf, iljinIndex, relationOf, fortuneOf, daysInMonth } from '../assets/js/calc.js';
+import { ohaengOf, zodiacOf, iljinIndex, relationOf, fortuneOf, daysInMonth, yearGanjiIndex } from '../assets/js/calc.js';
 
 const GAN = '갑을병정무기경신임계';
 const JI = '자축인묘진사오미신유술해';
@@ -76,4 +76,12 @@ test('월별 날짜 수', () => {
   assert.equal(daysInMonth(1900, 2), 28);
   assert.equal(daysInMonth(2023, 4), 30);
   assert.equal(daysInMonth(2023, 12), 31);
+});
+
+test('해의 간지: 알려진 해', () => {
+  assert.equal(ganji(yearGanjiIndex(1984)), '갑자');
+  assert.equal(ganji(yearGanjiIndex(1955)), '을미');
+  assert.equal(ganji(yearGanjiIndex(2020)), '경자');
+  assert.equal(zodiacOf(1955, 5, 20).year, 1955);
+  assert.equal(zodiacOf(2020, 1, 24).year, 2019); // 설 전이면 전해 기준
 });
