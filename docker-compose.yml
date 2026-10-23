@@ -1,0 +1,10 @@
+# 로컬 미리보기용: docker compose up 후 http://localhost:8080 에서 확인합니다.
+# 폴더를 그대로 연결하므로 파일을 고치고 새로고침하면 바로 반영됩니다.
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+      - ./.docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro

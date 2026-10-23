@@ -1,0 +1,9 @@
+{
+  "typeLabel": { "water": "물형", "soil": "흙형" },
+  "plants": [
+    { "id": "monstera", "name": "몬스테라",   "type": "water" },
+    { "id": "hanra",    "name": "나한송",     "type": "soil"  },
+    { "id": "bamboo",   "name": "개운죽",     "type": "water" },
+    { "id": "palm",     "name": "테이블야자", "type": "soil"  }
+  ]
+}
